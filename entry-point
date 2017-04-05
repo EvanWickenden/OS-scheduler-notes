@@ -1,0 +1,28 @@
+main entry point is function schedul() in sched.c
+
+used by rest of kernel to invoke scheduler
+
+schedule() is generic with respect to scheduler classes;
+
+finds highest priorotity class with runnable process and asks it for next process to run
+
+
+
+static inline struct task_struct *
+pick_next_task(struct rq *rq)
+{
+  const struct sched_class *class;
+  struct task_struct *p;
+
+  /// optimization; skip rt
+
+  while (1)
+  {
+    p = class->pick_next_task(rq)
+    if (p) return p;
+
+    /* idle will alwasy return non-null p, if nothing else */
+    class = class->next;
+  }
+}
+

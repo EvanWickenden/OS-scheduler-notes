@@ -1,0 +1,11 @@
+dispatcher:
+  - mechanism; context switches
+
+scheduler
+  - policy
+    - decide which process to run
+
+  -moments
+    - switch from running to wating;
+    runnig to ready;
+     waiting to ready; done

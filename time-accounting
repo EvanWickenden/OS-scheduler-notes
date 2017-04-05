@@ -1,0 +1,10 @@
+all process schedulers must account for time a process runs;
+  - on each tick of system clock, timeslice is decremented; when zero, preempted
+
+BUT
+
+cfs drops the timeslice,
+
+so:
+
+uses sched_entity <linux/sched.h> to keep track of process accounting

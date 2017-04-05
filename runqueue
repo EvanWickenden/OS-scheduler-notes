@@ -1,0 +1,59 @@
+all run queues available in array runqueues, one per cpu
+
+  -- hm what does this mean
+
+struct rq (sched/sched.h)
+  - contains per-class ren queues and params
+    - data structure: rt_rq, cfs_rq
+
+
+    - will need to add freezer_rq
+
+
+
+struct sched_entity
+  - member of tast_struck -- one per scheduler class
+    - maintains struct rb_node, run_node, other per-task params
+
+  - current scheduler for task specified by 
+    - task_struct.sched_class
+
+
+  - core functions: 
+   sched/core.c
+   sched/sched.h
+   linux/sched.h
+
+   and: sched/fair.c, rt.c
+
+
+process changes class via sched_setscheduler syscall
+
+
+ ---------
+
+
+ central data structure of core scheduler is run queue
+  - each cpu has own; ecah active process occurs on one uniquely o
+
+
+- for singel process machines:
+
+struct rq 
+{
+  unsinged long nr_running;
+#define CPU_LOAD_IDX_MAX 5
+  unsigned long cpu_load[CPU_LOAD_IDX_MAX];
+
+  struct load_weight load;
+  /* measure of current load on runqueue */
+
+  struct cfs_rq cfs;
+  struct rt_rq rt;
+  /* incorporate freezer_rq here */
+  /* embedded sub runqueues */
+
+  struct task_struct *curr, *idle;
+
+  u64 clock;
+};

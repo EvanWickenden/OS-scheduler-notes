@@ -1,0 +1,68 @@
+
+virtual runtime
+
+  - actual runtime weighted by number of runnable processes
+
+  - units are nanoseconds -- decoupled from timer tick
+
+  - used to approximate ideal multitasking processor 1/n%
+
+  - used to account for how long a process has run and how much longer it should run
+
+
+ *** update_cur() ***
+
+
+ static void update_cur(struct cfs_rq *cfs_rq)
+ {
+    static sched_entity *curr = cfs_rq->curr;
+    u64 now = rq_of(cfs_rq)->cloc;
+    unsigned long delta_exec;
+
+    if (unlikely(!curr))
+      return;
+
+    /* amout of time current was running since last time changed load */
+    delta_exec = (unsigned long) (now - curr->exec_start);
+    if (!delta_exec) return;
+
+    __update_cur(cfs_rq, curr, delta_exec);
+    curr->exec_start = now;
+
+    if (entity_is_task(curr))
+    {
+      struct task_struct *curtask = task_of(curr);
+
+      trace_sched_stat_runtime(curtask, delta_exec, curr->vruntime);
+      cpuacct_charge(curtask, delta_exec);
+      account_group_exec_runtime(curtask, delta_exec);
+    }
+
+ }
+
+
+
+
+this calculates the execution time of current process, stores it in delta_exec;
+passes value to __update_curr(); which weights the value by number of runnable processes;
+vruntime then incemented by weighted value;
+
+
+
+static inline void
+__update_cur(struct cfs_rq *cfs_rq, struct sched_entity *curr, unsigned long delta_exec)
+{
+  unsigned long delta_exec_weighted;
+
+  sched-tat_set(curr->exec_max, max((u64delta_exec, curr->exec_max));
+
+  curr->sum_exec_runtime += delta_exec;
+  schedstat_add(cfs_rq, exec_cloc, delta_exec);
+  delta_exec_weighted = calc_delta_fair(delta_exec, curr);
+
+  curr->vruntime += delta_exec_weighted;
+  update_min_vruntime(cfs_rq);
+}
+
+
+function si invoked by system timer and at obvious points, eg process starts or stops running.

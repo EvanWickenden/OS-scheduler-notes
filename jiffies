@@ -1,0 +1,12 @@
+holds number of ticks since system boot
+  - on boot set to zero
+
+system uptime is jiffies/HZ seconds
+
+jiffies will overflow in 40 days with HZ = 1000; as oppose to 400 with HZ = 100;
+hence jiffies_64;
+
+wraps around to zero
+
+
+

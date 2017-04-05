@@ -1,0 +1,51 @@
+scheduler is modular;
+different algorithms for different types of processes;
+
+  *** schedular classes ****
+
+enable different aglorithms to coexist
+
+determined at compile time -- kernel compile
+
+
+not enabled for multiprocessor systems: thinned out structure:
+
+
+struct sched_class
+{
+  const struct sched_class *next;
+
+  void (*enqueue_task) (struct rq *rq, struct task_struct *p, int wakeup);
+  /* adds new process to runqueue; happens when process changes from sleeping into runnable state;
+   * remember new process always created by fork; always in runnable state */
+
+  void (*dequeue_task) (struct rq *rq, struct task_struct *p, int sleep);
+  /* takes process off run queue; when process goes from runnable to not so; 
+   * or when needs to be taken off for other reasons */
+
+   /* this *rq;   --------    internal to class; defined only locally ? */
+  
+  void (*yield_task)   (struct rq *rq);
+  /* yield temporarily */
+
+  void (*check_preempt_curr)  (struct rq *rq, struct task_struct *p, int sleep);
+  /* preempt current task with newly woken if necessary */
+
+  struct task_struct * (*pick_next_task) (struct rq *rq);
+  /* pick next task to run; */
+
+  void (*put_prev_task) (struct rq *rq, struct task_struct *p): /* note current is not useful to us; we are current */
+  /* called before replacing with some other function */
+
+  /* these above two functions are responsibele for giving the cpu a task and taking it away; 
+   * distinct from adding or removing it to run queue */
+
+  void (*set_curr_taasx) (struct rq &rq):
+  /* called when scheduling policy of a task is changed */
+
+  void (*task_tick) (struct rq *rq, struct task_struct *p);
+  /* called periodically by scheduler */
+
+  void (*task_new) (strut rq *rq, struct task_struct *p);
+  /* notified upon forks! that a new process has ben created */
+};

@@ -1,0 +1,16 @@
+
+works with hardware;
+
+hardware provides: system timer
+  - electronic source
+
+  - system timer goes off at tick rate;
+      - issues an interrupt
+
+
+  - thus keeps track of time;
+    - wall time -- actual time of day
+    - system uptime
+      - time since system has booted
+
+

@@ -1,0 +1,6 @@
+practical approach to support time sharing
+
+ **** run process for a time slice, then move to back of fifo queue
+
+preemted if still running at end of time slice
+

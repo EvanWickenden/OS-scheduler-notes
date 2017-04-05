@@ -1,0 +1,7 @@
+symmetric multiprocessor
+  shared ram; individual caches assigned to cpu's
+
+- small number of cups
+
+- same time to access ram; private cache
+

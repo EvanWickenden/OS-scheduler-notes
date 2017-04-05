@@ -1,0 +1,15 @@
+hz
+  
+  linux customizable; 100 default
+
+
+larger:
+  - kernel timers execute with ifner resolution and increased accuracy
+  - poll and select with timeout are more precies
+  - resource time more accuartly recorded
+  - process premition occcurs more accurately
+
+  - but:
+
+    - more overhead; more power consmption
+

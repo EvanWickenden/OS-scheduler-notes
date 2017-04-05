@@ -1,0 +1,18 @@
+process schedulure
+
+multitasking -- give illusion of simultaneous execution
+
+- preemptive
+
+
+io-bound versus processor bound
+
+favor io-bound for interactivity
+
+process priority
+  - nice values
+
+
+timesice
+  - how long task can run until preempted
+  - too long; uninteractive; to short wasted context switch efficiency

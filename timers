@@ -1,0 +1,43 @@
+
+
+
+
+delay work for specified amount of time
+
+   - kernel timers
+
+
+usage:
+ setup, exiration time, funciton to execute upon expiration, activate the timer;
+  - destroyed after it expires;
+
+
+
+struct timer_list
+{
+  struct list_head entry;   /* list entry */
+  unsigned long expires;    /* jiffies */
+  void (*function)(unsigned long);     /* handler */
+  unsigned long data;     /* data for handnler */
+  struct tvec_t_base_s *base;  /* dont fuck with this */
+}
+
+
+usage:
+
+
+{
+
+  struct timer_list my_timer;
+  init_timer(&mytimer);
+
+  my_timer.jxpires = jiffies + delay;
+  my_timer.data = 0;
+  my_timer.function = func;
+
+
+  add_timer(&my_timer);
+}
+
+
+

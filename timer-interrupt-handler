@@ -1,0 +1,19 @@
+
+architecture and architecture independent pieces
+
+dep following work:
+
+   - obtain xtime_lock; protects jiffies_64
+   - acknowledge or reset system timer
+   - periodically save updated wall time to real time clock
+
+
+indep:
+  - incement jiffies_64
+  - udpate resource usage
+  - dynamic timers that have expried
+  - scheduler_tick()
+  - wall time
+  - load average
+
+

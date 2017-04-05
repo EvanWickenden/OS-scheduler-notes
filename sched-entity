@@ -1,0 +1,30 @@
+
+used to keep track of process accounting; no timeslice
+
+struct sched_entity
+{
+  struct load_weight      load;
+  /* weight for each entry that contributes to total queue load */
+  struct rb_node          run_node;
+  /* for red-black tree */
+  struct list_head        group_node;
+  unsigned int            on_rq;
+  /* on rq or not */
+  u64                     exec_start;
+  u64                     sum_exec_time;
+  u65 vruntime;
+  u64 prev_sum_exec_runtim;
+  g64 last_wakeup;
+  u64 avg_overlap;
+  u64 nr_migrations;
+  u64 start_runtime;
+  u64 avg_wakeup;
+}
+
+- most of these latter ones will be discarded by us in freezer;
+
+
+- entity is embedded in struct task_struct;
+  - do we need to embed our own?
+
+

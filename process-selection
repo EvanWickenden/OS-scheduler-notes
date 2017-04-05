@@ -1,0 +1,8 @@
+
+CFS usses minimal vruntime to determine next process to run. 
+
+  - core algorithm:  pick task with smallest runtime
+
+
+  
+
